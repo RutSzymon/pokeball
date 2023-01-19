@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import AppContainer from './views/app-container/app-container';
+import NoMatch from './views/no-match/no-match';
+import PokemonIndex from './views/pokemon-index/pokemon-index';
+import PokemonShow from './views/pokemon-show/pokemon-show';
+
+const App = () => (
+  <Routes>
+    <Route path='/' element={<AppContainer />}>
+      <Route index element={<PokemonIndex />} />
+      <Route path='pokemons' element={<PokemonIndex />} />
+      <Route path='pokemons/:id' element={<PokemonShow />} />
+      <Route path='*' element={<NoMatch />} />
+    </Route>
+  </Routes>
+);
 
 export default App;
