@@ -6,14 +6,15 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "deploy": "vercel --prod",
+    "eject": "react-scripts eject",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
   },
   "engines": {
-    "npm": "^8.19.3",
-    "node": "^18.13.0"
+    "npm": "^8.19.2",
+    "node": "^18.12.1"
   },
   "dependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -27,6 +28,7 @@
     "react-router-dom": "^6.6.2",
     "react-scripts": "5.0.1",
     "sass": "^1.57.1",
+    "vercel": "^28.13.0",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
