@@ -10,10 +10,10 @@ const PokemonIndex = () => {
 
   useEffect(() => {
     axios.get('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
-      .then(response => {
+      .then((response) => {
         setPokemonList(response.data.results);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
@@ -24,7 +24,7 @@ const PokemonIndex = () => {
         pokemonList={ pokemonList }
         setChosenPokemon={ setChosenPokemon }
       />
-      <Showcase />
+      <Showcase pokemon={ chosenPokemon } />
     </>
   );
 };

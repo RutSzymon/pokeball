@@ -18,8 +18,9 @@ module.exports = {
     'react',
   ],
   rules: {
-    'arrow-parens': ['error', 'as-needed'],
+    'arrow-parens': ['error', 'as-needed', { requireForBlockBody: true }],
     'jsx-quotes': ['error', 'prefer-single'],
+    'max-len': ['error', { code: 120 }],
     'react/function-component-definition': [2, { namedComponents: 'arrow-function' }],
     'react/jsx-curly-spacing': [2, { when: 'always' }],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],

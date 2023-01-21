@@ -1,34 +1,59 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import Autosuggest from 'react-autosuggest';
+
+import './search-box.scss';
 
 const SearchBox = ({ pokemonList, setChosenPokemon }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   const caseInsensitiveRegex = value => new RegExp(`${value}`, 'i');
   const escapeRegexCharacters = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  useEffect(() => {
-    const searchPokemon = () => {
-      const escapedValue = escapeRegexCharacters(searchTerm.trim());
-      if (escapedValue === '') { return []; }
+  const searchPokemon = () => {
+    const escapedValue = escapeRegexCharacters(searchTerm.trim());
+    if (escapedValue === '') { return []; }
 
-      const regex = caseInsensitiveRegex(escapedValue);
-      return pokemonList.filter(pokemon => regex.test(pokemon.name));
-    };
+    const regex = caseInsensitiveRegex(escapedValue);
+    return pokemonList.filter(pokemon => regex.test(pokemon.name)).slice(0, 5);
+  };
 
-    const delayDebounceFn = setTimeout(() => {
-      console.log(searchPokemon());
-    }, 1000);
+  const onSuggestionSelected = (_event, { suggestion }) => {
+    setChosenPokemon(suggestion);
+  };
 
-    return () => clearTimeout(delayDebounceFn);
-  }, [searchTerm]);
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+  const onSuggestionsFetchRequested = ({ value }) => {
+    setSuggestions(searchPokemon(value));
+  };
+
+  const getSuggestionValue = suggestion => suggestion.name;
+
+  const renderSuggestion = suggestion => <div>{ suggestion.name }</div>;
+
+  const handleChange = (_event, { newValue }) => {
+    setSearchTerm(newValue);
+  };
+
+  const inputProps = {
+    placeholder: 'Which pokemon would you like to choose?',
+    value: searchTerm,
+    onChange: handleChange,
+  };
 
   return (
-    <input
-      type='text'
-      autoComplete='off'
-      placeholder='Search here...'
-      onChange={ e => setSearchTerm(e.target.value) }
+    <Autosuggest
+      suggestions={ suggestions }
+      onSuggestionSelected={ onSuggestionSelected }
+      onSuggestionsClearRequested={ onSuggestionsClearRequested }
+      onSuggestionsFetchRequested={ onSuggestionsFetchRequested }
+      getSuggestionValue={ getSuggestionValue }
+      renderSuggestion={ renderSuggestion }
+      inputProps={ inputProps }
     />
   );
 };
