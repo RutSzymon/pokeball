@@ -2,14 +2,13 @@ import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Autosuggest from 'react-autosuggest';
 
+import { caseInsensitiveRegex, escapeRegexCharacters } from '../../utils/text-utils';
+
 import './search-box.scss';
 
 const SearchBox = ({ pokemonList, setChosenPokemon }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-
-  const caseInsensitiveRegex = value => new RegExp(`${value}`, 'i');
-  const escapeRegexCharacters = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
   const searchPokemon = () => {
     const escapedValue = escapeRegexCharacters(searchTerm.trim());
@@ -33,14 +32,14 @@ const SearchBox = ({ pokemonList, setChosenPokemon }) => {
 
   const getSuggestionValue = suggestion => suggestion.name;
 
-  const renderSuggestion = suggestion => <div>{ suggestion.name }</div>;
+  const renderSuggestion = suggestion => <span>{ suggestion.name }</span>;
 
   const handleChange = (_event, { newValue }) => {
     setSearchTerm(newValue);
   };
 
   const inputProps = {
-    placeholder: 'Which pokemon would you like to choose?',
+    placeholder: 'Choose pokemon',
     value: searchTerm,
     onChange: handleChange,
   };

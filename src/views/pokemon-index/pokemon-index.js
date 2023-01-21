@@ -18,13 +18,21 @@ const PokemonIndex = () => {
       });
   }, []);
 
+  const handlePrevNext = (pokemon, number) => {
+    const index = pokemonList.findIndex(item => item.name === pokemon.name);
+    setChosenPokemon(pokemonList.at(index + number) || pokemonList.at(0));
+  };
+
   return (
     <>
       <SearchBox
         pokemonList={ pokemonList }
         setChosenPokemon={ setChosenPokemon }
       />
-      <Showcase pokemon={ chosenPokemon } />
+      <Showcase
+        handlePrevNext={ handlePrevNext }
+        pokemon={ chosenPokemon }
+      />
     </>
   );
 };

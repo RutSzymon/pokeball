@@ -1,0 +1,46 @@
+#showcase {
+	align-items: center;
+	justify-content: center;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 0 30px;
+
+  h1 {
+    margin: 0;
+  }
+
+  img {
+    align-self: center;
+    max-width: 16em;
+  }
+
+  .slider {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    width: 20em;
+    margin-top: 30px;
+  }
+
+  .arrow-btn {
+    -webkit-transform: rotate(-45deg);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    transform: rotate(-45deg);
+    width: 30px;
+
+    &.arrow-left {
+      border-top: 5px solid #fff;
+      border-left: 5px solid #fff;
+    }
+
+    &.arrow-right {
+      border-right: 5px solid #fff;
+      border-bottom: 5px solid #fff;
+    }
+  }
+}
